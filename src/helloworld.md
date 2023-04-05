@@ -43,19 +43,19 @@ zig build-exe temp.zig -O ReleaseSmall -target aarch64-macos-none --name aarch64
 Executable format:
 
 ```bash
-file aarch64-linux-musl                                                                                                                                                     10:48:26
+file aarch64-linux-musl
 # aarch64-linux-musl: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, stripped
-file x86_64-linux-musl                                                                                                                                                      10:51:33
+file x86_64-linux-musl
 # x86_64-linux-musl: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, stripped
 
-file aarch64-linux-gnu                                                                                                                                                      10:51:55
+file aarch64-linux-gnu
 # aarch64-linux-gnu: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, stripped
-file x86_64-linux-gnu                                                                                                                                                       10:52:29
+file x86_64-linux-gnu
 # x86_64-linux-gnu: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, stripped
 
-file aarch64-macos-none                                                                                                                                                     10:52:10
+file aarch64-macos-none
 # aarch64-macos-none: Mach-O 64-bit executable arm64
-file x86_64-macos-none                                                                                                                                                      10:52:18
+file x86_64-macos-none
 # x86_64-macos-none: Mach-O 64-bit executable x86_64
 ```
 
@@ -66,7 +66,7 @@ file x86_64-macos-none                                                          
 So, here is the size difference:
 
 ```bash
-ls -lht                                                                                                                                                                     10:48:26
+ls -lht
 
 # 8.5K  aarch64-linux-musl*
 # 8.5K  x86_64-linux-musl*
