@@ -1,6 +1,6 @@
 # Data types
 
-## Primitive Types
+## [ Primitive Types ](https://ziglang.org/documentation/master/#Primitive-Types)
 
 | Type | C Equivalent | Description
 | ---- | ------------ | ------------ |
