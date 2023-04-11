@@ -8,3 +8,4 @@
 - [Enum](./enum.md)
 - [Error](./error.md)
 - [Struct](./struct.md)
+- [Array](./array.md)
