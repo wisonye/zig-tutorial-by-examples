@@ -7,3 +7,4 @@
 - [Variables](./variables.md)
 - [Enum](./enum.md)
 - [Error](./error.md)
+- [Struct](./struct.md)
