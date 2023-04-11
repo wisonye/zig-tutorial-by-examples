@@ -111,3 +111,21 @@ There are 2 ways to do that:
 
     </br>
 
+- `if (optional_var) |value| {}` block
+
+    ```c
+    //
+    // If `maybe_have_int_value` isn't `null`, then `value` hold the
+    // acutal value
+    //
+    if (maybe_have_int_value) |value| {
+        print(
+            "\n>>> [ optional_variables ] - unwrapped_value: {}",
+            .{value},
+        );
+    }
+    ```
+
+    </br>
+
+
