@@ -119,4 +119,33 @@ But the `ErrorType` just optional, so this works:
     </br>
 
 
+## How to silent a function call which return `Error union`
+
+For example, I want to format a string into a buffer, and `std.fmt.bufPrint`
+returns an error union `BufPrintError![]u8`. So I should catch the error and
+map to empty string when formatting fails:
+
+```c
+// No need to zero inited
+var state_buf: [20]u8 = undefined;
+
+// Return teh formatted string slice
+const state_str = switch (self.state) {
+    GameState.GS_UNINIT => std.fmt.bufPrint(&state_buf, "GS_UNINIT", .{}) catch "",
+    GameState.GS_INIT => std.fmt.bufPrint(&state_buf, "GS_INIT", .{}) catch "",
+    GameState.GS_BEFORE_START => std.fmt.bufPrint(&state_buf, "GS_BEFORE_START", .{}) catch "",
+    GameState.GS_PLAYING => std.fmt.bufPrint(&state_buf, "GS_PLAYING", .{}) catch "",
+    GameState.GS_PLAYER_WINS => std.fmt.bufPrint(&state_buf, "GS_PLAYER_WINS", .{}) catch "",
+    GameState.GS_PAUSE => std.fmt.bufPrint(&state_buf, "GS_PAUSE", .{}) catch "",
+};
+
+print("\n >>>> state_str len: {}, byte size: {}, value: {s}", .{
+    state_str.len,
+    @sizeOf(@TypeOf(state_str)),
+    state_str,
+});
+```
+
+</br>
+
 
