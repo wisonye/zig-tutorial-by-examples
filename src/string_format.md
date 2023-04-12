@@ -100,3 +100,48 @@ print(
 </br>
 
 
+## How to pass a string as `C string`
+
+For example, you try to call `std.fmt.bufPrint` to get back a formatted string,
+and then pass that string into `raylib.TraceLog` which asks for a `[*c]const u8`
+(string) pointer type.
+
+If you try to do like this:
+
+```c
+var debug_buf = [_:0]u8{0} ** 1024;
+var debug_str = std.fmt.bufPrint(&debug_buf, "\n{{\n\tstate: {s}\n{s}\n{s}\n{s}\n}}", .{
+    state_str,
+    player_1_str,
+    player_2_str,
+    ball_str,
+}) catch "";
+
+rl.TraceLog(
+    rl.LOG_DEBUG,
+    ">>> [ Game.print_debug_info ] - %s",
+    debug_str // `[]const u8` (slice)
+);
+```
+
+Then you will fail with the following error:
+
+```bash
+error: cannot pass '[]const u8' to variadic function
+```
+
+</br>
+
+You have to conver the `[]const u8` ptr to `[*c]const u8` type like this:
+
+```c
+rl.TraceLog(
+    rl.LOG_DEBUG,
+    ">>> [ Game.print_debug_info ] - %s",
+    @ptrCast([*c]const u8, debug_str),
+);
+```
+
+</br>
+
+
