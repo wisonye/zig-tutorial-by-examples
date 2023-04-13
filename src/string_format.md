@@ -235,3 +235,53 @@ rl.TraceLog(
 </br>
 
 
+### The potential bug you should know about if you try to pass `std.fmt.bufPrint` slice to the C API
+
+Make sure you ALWAYS zero the buffer that is used by the `std.fmt.bufPrint` and
+then pass the formatted string slice into a C API as a `null-terminated char array`
+(C string)
+
+```c
+const number_value = 888;
+
+//
+// This is the best way to create a zeroed buffer
+//
+var number_buf = [_:0]u8{0x00} ** 5;
+print("\n>>> number_buf mem content:", .{});
+for (number_buf, 0..) |mem_char, index| {
+    print("\nnumber_buf[{d}]: 0x{X:0>2}", .{ index, mem_char });
+}
+
+//
+// Calling `std.mem.set` is another way to zero buffer
+//
+var number_buf_uninit: [5:0]u8 = undefined;
+// std.mem.set(u8, &number_buf_uninit, 0);
+print("\n>>> number_buf_uninit mem content:", .{});
+for (number_buf_uninit, 0..) |mem_char_2, index| {
+    print("\nnumber_buf_uninit[{d}]: 0x{X:0>2}", .{ index, mem_char_2 });
+}
+```
+
+```bash
+# number_buf[0]: 0x00
+# number_buf[1]: 0x00
+# number_buf[2]: 0x00
+# number_buf[3]: 0x00
+# number_buf[4]: 0x00
+
+# number_buf_uninit[0]: 0xAA
+# number_buf_uninit[1]: 0xAA
+# number_buf_uninit[2]: 0xAA
+# number_buf_uninit[3]: 0xAA
+# number_buf_uninit[4]: 0xAA
+```
+
+As you can see the result above, the `number_buf_uninit` contains rubbish bytes
+if you forgot to call `std.mem.set`.
+
+So, it will end up with C API showing extra rubbish characters because the
+formatted string slice doesn't end with `\0`!!!
+
+</br>
