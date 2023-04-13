@@ -58,6 +58,12 @@ erased, and all that's left is its contents.
 
 </br>
 
+There is a detailed case to explain how std `print` works with `comptime`:
+
+[Case-Study-print-in-Zig](https://ziglang.org/documentation/master/#Case-Study-print-in-Zig)
+
+</br>
+
 ### `comptime` convert data type from one to other
 
 Compiletime-known is super useful if you want to write something like
