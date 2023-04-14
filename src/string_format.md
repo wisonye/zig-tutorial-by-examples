@@ -2,6 +2,9 @@
 
 Detail description: [`std/fmt.zig#L35`](https://github.com/ziglang/zig/blob/master/lib/std/fmt.zig#L35)
 
+Also, you should open the `std.fmt` source file and then search `test`, those
+unit tests are the best example code about how to use `std.fmt`:)
+
 ### Format float value with the given decimals
 
 `{d:.2}`

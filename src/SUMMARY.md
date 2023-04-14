@@ -11,3 +11,8 @@
 - [Array](./array.md)
 - [String format](./string_format.md)
 - [`comptime`](./comptime.md)
+- [Pointers](./pointers.md)
+- [Builtin functions](./builtin_functions.md)
+- [Build System](./builg_zig.md)
+- [Working with C]()
+    - [Equivalent functions in `Zig`](./c_function_in_zig.md)

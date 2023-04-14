@@ -1,6 +1,7 @@
 # What is Zig
 
-In the nutshell, `zig` is a better `C`, it's the replacement of `C`. Because:
+In the nutshell, `zig` is a better `C`, I feel that it's the replacement of
+`C` or the `Better C without bullshit`. Because:
 
 - `Zig` removes all `C` bad design and improves it, watch [this](https://www.youtube.com/watch?v=Gv2I7qTux7g&t=67s)
 
@@ -38,6 +39,11 @@ version to stay space), compile in real-time.
     ```bash
     tree lib/libcxx/src -L 1
     ```
+
+    </br>
+
+- You're able to include `C` header file in `Zig` and call `C` functions without
+any extra binding, and it's that easy!:)
 
     </br>
 
