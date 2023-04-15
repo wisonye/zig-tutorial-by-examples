@@ -204,6 +204,78 @@ There are 2 major usages for `Array multiplcation`:
 
     </br>
 
+- Composited array init case:
+
+    ```c
+    const Point = struct {
+        x: f32,
+        y: f32,
+    };
+    const Particle = struct {
+        pos: Point,
+        alpha: f32,
+        size: f32,
+        active: bool,
+    };
+
+    const MAX_PARTICAL_AMOUNT = 2;
+    const ParticleSystem = struct {
+        particles: [MAX_PARTICAL_AMOUNT]Particle,
+    };
+
+    pub fn main() void {
+        const ps = ParticleSystem{
+            //
+            // This syntax looks a bit complicated
+            //
+            .particles =
+            // This tuple uses to init the array
+            .{
+                // This anonymous struct uses to init a `Paticle` instance as
+                // one of the array element
+                .{
+                    .pos = Point{ .x = 0, .y = 0 },
+                    .alpha = 0.0,
+                    .size = 0.0,
+                    .active = false,
+                }
+            }
+            // Then multiple the value N times
+            ** MAX_PARTICAL_AMOUNT
+        };
+        print("\n>>> ps: {any}", ps);
+    }
+    ```
+
+    </br>
+
+    And this is the more readable version by adding the type there:
+
+    ```c
+    pub fn main() void {
+        const ps = ParticleSystem{
+            .particles =
+            // One elment array
+            [1]Particle {
+                // Init a `Paticle` instance element
+                Particle {
+                    .pos = Point { .x = 0, .y = 0 },
+                    .alpha = 0.0,
+                    .size = 0.0,
+                    .active = false,
+                }
+            }
+            // Then multiple the array N times
+            ** MAX_PARTICAL_AMOUNT
+        };
+        print("\n>>> ps: {any}", ps);
+    }
+    ```
+    </br>
+
+
+
+
 ### String array
 
 
