@@ -27,6 +27,16 @@ print("\n>>> @Type(@TypeOf(a)): {}", .{@typeInfo(@TypeOf(a))});
 
 </br>
 
+### Type conversion
+
+- `@as`: From `anytype` (expression) to `T`,  is the preferred way to convert
+between types, whenever possible.
+- `@intToFloat`: From float to integer
+- `@floatToInt`: From integer to float
+
+</br>
+
+
 ### Pointer related
 
 - `@ptrToInt`: From `*T/?*T` to `usize`

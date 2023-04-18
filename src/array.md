@@ -1,5 +1,12 @@
 # Array
 
+In `C`, the array (var) decays to a pointer implicitly and it points to the
+first element's address of the array.
+
+But in `Zig`, `Array`  (var) is NOT a pointer, if you want a pointer, you
+have to do that explicitly by using `&`. And use `@as` or `@ptrCast` to convert
+to the pointer type you wanted.
+
 ### Normal array
 
 Normal array (non-string) always have the data type of `[N]Type`, it represents
