@@ -13,6 +13,7 @@
 - [`comptime`](./comptime.md)
 - [Pointers](./pointers.md)
 - [Builtin functions](./builtin_functions.md)
+- [Memory](./memory.md)
 - [Build System](./build_zig.md)
 - [Working with C]()
     - [Equivalent functions in `Zig`](./c_function_in_zig.md)
