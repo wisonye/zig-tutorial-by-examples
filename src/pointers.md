@@ -114,4 +114,31 @@ const Cheatsheet = struct {
     ```
 
 
+### Dereference pointer to init/overwrite value
+
+```c
+const Point = struct { x: f32 = 0.0, y: f32 = 0.0 };
+
+fn init_point(p: *Point) void {
+    //
+    // C version:
+    //
+    // *p = (Point) { .x = 1.1, .y = 2.2 };
+    //
+    p.* = Point{ .x = 1.1, .y = 2.2 };
+}
+
+fn init_struct_by_pointer() void {
+    var center_point = Point{};
+    init_point(&center_point);
+
+    print("\n>>> [ Pointer - init_struct_by_pointer ] - point: {}", .{center_point});
+}
+```
+
+```bash
+# >>> [ Pointer - init_struct_by_pointer ] - point: pointers.Point{ .x = 1.10000002e+00, .y = 2.20000004e+00 }⏎
+```
+
+</br>
 
