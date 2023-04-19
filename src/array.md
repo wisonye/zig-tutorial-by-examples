@@ -323,3 +323,60 @@ print("\n", .{});
 
 </br>
 
+### Passing array as parameter and return an array
+
+When you pass an array as a function parameter, you better to pass is as `Slice`
+which means the `pointer to the array`.
+
+When you return an array, the array has to be length specified (size known at
+compile-time).
+
+```c
+
+fn func_para_with_array(arr: []const usize) [2]usize {
+    print(
+        "\n>>> [ arrays, func_para_with_array ] - param 'arr' type: {}, len: {}, value:\n",
+        .{ @TypeOf(arr), arr.len },
+    );
+    for (arr, 0..) |temp_int, index| {
+        print(
+            "arr[{}], type: {}, value: {}\n",
+            .{ index, @TypeOf(temp_int), temp_int },
+        );
+    }
+
+    const result = [_]usize{ arr[0] + 10, arr[1] + 20 };
+    return result;
+}
+
+const result_1 = func_para_with_array(&arr);
+const result_2 = func_para_with_array(&arr_2);
+const result_3 = func_para_with_array(&arr_3);
+print("\n>>> result_1 ptr: {*}, len: {}, value: {any}", .{ &result_1, result_1.len, result_1 });
+print("\n>>> result_2 ptr: {*}, len: {}, value: {any}", .{ &result_2, result_2.len, result_2 });
+print("\n>>> result_3 ptr: {*}, len: {}, value: {any}", .{ &result_3, result_3.len, result_3 });
+```
+
+```bash
+# >>> [ arrays, func_para_with_array ] - param 'arr' type: []const usize, len: 3, value:
+# arr[0], type: usize, value: 1
+# arr[1], type: usize, value: 2
+# arr[2], type: usize, value: 3
+#
+# >>> [ arrays, func_para_with_array ] - param 'arr' type: []const usize, len: 3, value:
+# arr[0], type: usize, value: 4
+# arr[1], type: usize, value: 5
+# arr[2], type: usize, value: 6
+#
+# >>> [ arrays, func_para_with_array ] - param 'arr' type: []const usize, len: 3, value:
+# arr[0], type: usize, value: 7
+# arr[1], type: usize, value: 8
+# arr[2], type: usize, value: 9
+#
+# >>> result_1 ptr: [2]usize@7ffee1f03ce0, len: 2, value: { 11, 22 }
+# >>> result_2 ptr: [2]usize@7ffee1f03d00, len: 2, value: { 14, 25 }
+# >>> result_3 ptr: [2]usize@7ffee1f03d20, len: 2, value: { 17, 28 }
+```
+
+</br>
+
