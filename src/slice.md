@@ -10,19 +10,34 @@ If you see something like `[]u8` (no matter what type follow by the `[]` and
 got nothing inside the `[]`), that's a `slice`, that's pointer.
 
 ```c
-// A slice that represents a mutable `String`
+// A slice that represents a `String`
 const slice: []u8;
 
-// A slice that represents a immutable `String`
+// A slice that represents an array of `String`
+const slice: [][]u8;
+
+// A const slice that represents a `String Literal` (readonly string)
 const slice: []const u8;
 
-// A slice that represents a mutable `usize array`
+// A slice that represents an array of `String Literal` (readonly string)
+const slice: [][]const u8;
+
+// A slice that represents a `usize array`
 const slice: []usize;
 
-// A slice that represents a mutable `optional float array`
+// A slice that represents a `optional float array`
 const slice: []?f32;
 // ...etc
 ```
+
+</br>
+
+When declaring function parameter as slice:
+
+- Use `[]const T` if that's readonly parameter
+- Use `[]T` if that's writable parameter (not a usual use case)
+
+</br>
 
 
 ### Slice features:
@@ -72,7 +87,7 @@ change).
         // Original array
         var int_arr = [_]usize{ 1, 2, 3 };
 
-        // Slice (pointer to array)
+        // Slice (`*[3]usize`: Pointer to 3 elements array, `*T`)
         const int_slice = int_arr[0..];
         // Modify original array last element via slice
         int_slice[2] = 4;

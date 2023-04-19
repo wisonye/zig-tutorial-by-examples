@@ -10,11 +10,11 @@ to the pointer type you wanted.
 ### Normal array
 
 Normal array (non-string) always have the data type of `[N]Type`, it represents
-a `N` elements of type array
+a `N` elements `Type` array
 
-- `[8]u8`: 8 elements of u8 array
-- `[_]u8`: unknown (or not care how much) elements of u8 array
-- `[3]usize`: 3 elements of usize array
+- `[8]u8`: 8 elements u8 array
+- `[_]u8`: unknown (or not care how much) elements u8 array
+- `[3]usize`: 3 elements usize array
 
 Different element amount is different data type:
 
@@ -64,7 +64,7 @@ print(
 </br>
 
 
-String literal is a `*const [N:0]u8` data type, it's the pointer!!!
+String literal is a `*const [N:0]u8` data type, it's a constant pointer!!!
 
 - It points to the read-only data section address, lifetime is same with the
 program lifetime!!!
