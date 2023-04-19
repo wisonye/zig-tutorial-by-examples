@@ -6,8 +6,8 @@ Detail explanation video:
 
 ### `Slice` syntax
 
-If you see something like `[]u8` (no matter what type follow by the `[]` and
-got nothing inside the `[]`), that's a `slice`, that's pointer.
+If you see something like `[]T` (no matter what type follow by the `[]` and
+got nothing inside the `[]`), that's a `slice`, that's pointer to an array.
 
 ```c
 // A slice that represents a `String`
@@ -35,7 +35,22 @@ const slice: []?f32;
 When declaring function parameter as slice:
 
 - Use `[]const T` if that's readonly parameter
+
+    For example:
+
+    ```c
+    fn functio_accept_readonly_string(slice: []const u8) void {}
+    fn functio_accept_readonly_slice(comptime T: type, slice: []const T) void {}
+    ```
+
 - Use `[]T` if that's writable parameter (not a usual use case)
+
+    For example:
+
+    ```c
+    fn functio_accept_string(slice: []u8) void {}
+    fn functio_accept_slice(comptime T: type, slice: []T) void {}
+    ```
 
 </br>
 
@@ -45,7 +60,7 @@ When declaring function parameter as slice:
 Keep this in mind:
 
 - `Slice` in `Zig` just a pointer to array, `slice` is a pointer and always
-valid. `Slice` is a pointer that can't be `null`.
+valid (It means can't be `null`).
 
 - `Slice` has a runtime `.len` (array `.len` is known at compile-time, can't
 change).
@@ -56,7 +71,8 @@ change).
 
 - `Zig` has the following rules to cast between `slice` and `array`:
 
-    - `[*]T` (array) can be converted to `[]T` (slice) automatic
+    - `&[*]T` (address of array) or `*[N]T` (pointer to array) can be converted
+    to `[]T` (slice) automatic by slicing the array implicitly.
 
         ```c
         // Function accepts `slice`
@@ -69,7 +85,7 @@ change).
         //
         // You can pass `array`, it converts to `slice` automatic, imagine like this:
         //
-        // &arr     -> arr[0..]
+        // &arr     -> arr[0..] 
         // &arr_2   -> arr2[0..]
         // &arr_3   -> arr3[0..]
         //
@@ -105,6 +121,18 @@ change).
         # >>> int_arr type: [3]usize, ptr: [3]usize@7ffeececcdd8, value: { 1, 2, 4 }
         # >>> int_slice type: *[3]usize, ptr: [3]usize@7ffeececcdd8, value: [3]usize@7ffeececcdd8
         # >>> copied_arr type: [3]usize, ptr: [3]usize@7ffeececcdf0, value: { 1, 2, 8 }⏎
+        ```
+
+        </br>
+
+    - `[]T.ptr` gets back `[*]T`
+
+        ```c
+        var buf: [32]u8 = undefined;
+        print("buf is at address {*}\n", .{ &buf });
+
+        const p = @as([]const u8, &buf);
+        print("p points to {*}, with length {}\n", .{ p.ptr, p.len });
         ```
 
         </br>
