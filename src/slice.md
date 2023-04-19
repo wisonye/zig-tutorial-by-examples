@@ -65,9 +65,13 @@ valid (It means can't be `null`).
 - `Slice` has a runtime `.len` (array `.len` is known at compile-time, can't
 change).
 
-
-
 - Because of `Slice` just a pointer, that's why it doesn't own the memory.
+
+- `[]T` just the syntax you used to declare variables or function parameters.
+
+    But when you use `@TypeOf(slice_var)` on a slice var, the return value is
+    always `*[N]T`, as slice is a pointer to array!!! Don't feel surprise when
+    you see the `@TypeOf(slice_var)` is different with the `[]T`:)
 
 - `Zig` has the following rules to cast between `slice` and `array`:
 

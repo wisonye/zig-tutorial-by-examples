@@ -13,6 +13,7 @@
 - [`comptime`](./comptime.md)
 - [Pointers](./pointers.md)
 - [Slice](./slice.md)
+- [String](string.md)
 - [Builtin functions](./builtin_functions.md)
 - [Memory](./memory.md)
 - [Build System](./build_zig.md)
