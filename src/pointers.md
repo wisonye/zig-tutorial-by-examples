@@ -1,5 +1,9 @@
 # Pointers
 
+Detail explanation video:
+
+[Solving Common Pointer Conundrums - Loris Cro](https://www.youtube.com/watch?v=VgjRyaRTH6E)
+
 ### Pointer type cheatsheet:
 
 ```c
@@ -54,3 +58,60 @@ const Cheatsheet = struct {
 ```
 
 </br>
+
+### Single-item pointer or many-items pointer
+
+- `*T`: single-item pointer to exactly one item. Supports deref syntax: `ptr.*`
+
+- `[*]T`: many-item pointer to unknown number of items.
+
+     It's more like the `C array pointer` which might point to a single item or many items and allow it to jump by the `size of the element`.
+
+    - Supports index syntax: `ptr[i]`
+    - Supports slice syntax: `ptr[start..end]`
+    - Supports pointer arithmetic: `ptr + x, ptr - x`
+    - `T` must have a known size, which means that it cannot be `anyopaque` or
+    any other opaque type.
+
+    </br>
+
+    Usually, you don't need to deal with `[*]T` syntax directly, you will and
+    you should use `[]T` (slice syntax) if possible instead of `[*]T`.
+
+    The only case you should use `[*]T` is when dealing with `C API` call:
+
+    When importing C header files, it's NOT sure whether pointers should be
+    translated as single-item pointers (`*T`) or many-item pointers (`[*]T`).
+
+    For that situation, you will use `[*c]T` to pass the `Zig pointer` to a
+    `C API` call, sample below:
+
+    ```c
+    const rl = @cImport({
+        @cInclude("raylib.h");
+    });
+
+    var hit_debug_buf = [_:0]u8{0} ** 200;
+    const hit_debug_str = std.fmt.bufPrint(
+        &hit_debug_buf,
+        "{d} hits happens, increase velocity to (x: {d:.2}, y: {d:.2}), current_velocities_increase: {d}",
+        .{
+            config.BALL_UI_HITS_BEFORE_INCREASE_VELOCITY,
+            self.velocity_x,
+            self.velocity_y,
+            self.current_velocities_increase,
+        },
+    ) catch "";
+    rl.TraceLog(
+        rl.LOG_DEBUG,
+        ">>> [ Ball_update ] - %s",
+        //
+        // `hit_debug_str` is a slice (`[]u8`), a pointer type in `Zig`, and
+        // you have to do the following pointer conversion to make it compiles
+        //
+        @ptrCast([*c]const u8, hit_debug_str),
+    );
+    ```
+
+
+
