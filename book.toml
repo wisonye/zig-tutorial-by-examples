@@ -3,4 +3,4 @@ authors = ["Wison Ye"]
 language = "en"
 multilingual = false
 src = "src"
-title = "Zig Book"
+title = "Zig tutorial by examples"
