@@ -14,6 +14,8 @@
 - [Pointers](./pointers.md)
 - [Slice](./slice.md)
 - [String](string.md)
+- [Bits](bits.md)
+- [Struct fields compression](struct_fields_compression.md)
 - [Builtin functions](./builtin_functions.md)
 - [Memory](./memory.md)
 - [Build System](./build_zig.md)
