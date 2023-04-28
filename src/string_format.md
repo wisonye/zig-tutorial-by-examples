@@ -57,7 +57,8 @@ print("\n>>> value: {?}", .{value});
 
 `{!}`
 
-`{!SuccessTypeSpecifierHere}`: for example `{!s}, {!d}, {!?d}`, you get the idea
+`{!SuccessTypeSpecifierHere}`: for example `{!s}, {!d}, {!?d}, {!any}`, you
+get the idea.
 
 ```c
 const ServerError = error{
@@ -90,10 +91,11 @@ print("\n>>> result3: {!?d}", .{result3});
 
     - `b` output integer value in binary notation
     - `0` means the fill char
-    - `<` means left aligned
-    - `^` means center aliged
-    - `>` means the right aliged
-    - `8` means the width (how many chars)
+    - Alignment:
+        - `<` means left aligned
+        - `^` means center aliged
+        - `>` means the right aliged
+    - `8` means the width (how many chars to fill with fill char)
 
 ```c
 const value: u8 = 0x0A;
@@ -107,32 +109,39 @@ print("\n>>> value: {b:0>8}", .{value});
 
 ### Format HEX
 
-- Uppercase
+- `{x}` (lowercase) or `{X}` (uppercase)
 
     ```c
     const hex_value = 0xabcd;
+    print("\n>>> Hex value: 0x{x}", .{hex_value});
     print("\n>>> Hex value: 0x{X}", .{hex_value});
     ```
     ```bash
+    # >>> Hex value: 0xabcd
     # >>> Hex value: 0xABCD
     ```
 
-- Fixed width
+    </br>
+
+
+- Fixed width `{X:0>2}`
+
+    - `0` means the fill char
+    - Alignment
+        - `<` means left aligned
+        - `^` means center aliged
+        - `>` means the right aliged
+    - `2` means the width (how many chars to fill with fill char)
 
     ```c
     const hex_value = 0xa;
 
-    // `{X:0>2}`
-    // '0' means the fill char
-    // `<` means left aligned
-    // `^` means center aliged
-    // `>` means the right aliged
-    // `2` means the width (how many chars)
     print("\n>>> Hex value: 0x{X:0>2}", .{hex_value});
     print("\n>>> Hex value: 0x{X:0>4}", .{hex_value});
     ```
     ```bash
-    # >>> Hex value: 0xABCD
+    # >>> Hex value: 0x0A
+    # >>> Hex value: 0x000A
     ```
 
     </br>
@@ -156,7 +165,14 @@ print("\n>>> value: {b:0>8}", .{value});
 
 ```c
 //
-// Buffer: Has to be `var` (mutable) and `undefined`
+// Buffer:
+// - Has to be `var` (mutable)
+//
+// - Usually, you don't need to zero it out, then just `undefined`
+//
+// - But you should zero it out if the buffer is used to format a string
+//   and pass it (or its slice) into a C API, as C string has to be `\0`
+//   null-terminated.
 //
 var person_desc_buf: [100]u8 = undefined;
 
@@ -225,7 +241,7 @@ error: cannot pass '[]const u8' to variadic function
 
 </br>
 
-You have to conver the `[]const u8` ptr to `[*c]const u8` type like this:
+You have to conver the `[]const u8` to `[*c]const u8` pointer type like this:
 
 ```c
 rl.TraceLog(

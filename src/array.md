@@ -1,9 +1,9 @@
 # Array
 
-In `C`, the array (var) decays to a pointer implicitly and it points to the
+In `C`, the array (variable) decays to a pointer implicitly and it points to the
 first element's address of the array.
 
-But in `Zig`, `Array`  (var) is NOT a pointer, if you want a pointer, you
+But in `Zig`, `Array`  (varible) is NOT a pointer, if you want a pointer, you
 have to do that explicitly by using `&`. And use `@as` or `@ptrCast` to convert
 to the pointer type you wanted.
 
@@ -47,7 +47,7 @@ fn normal_array() void {
 
 ### String just an array
 
-`[N:0]` means it includes the `\0` at the end and that's why the `size of byte`
+`[N:0]u8` means it includes the `\0` at the end and that's why the `size of byte`
 is `N+1` and string len is `N`!!!
 
 ```c
@@ -64,10 +64,19 @@ print(
 </br>
 
 
-String literal is a `*const [N:0]u8` data type, it's a constant pointer!!!
+String literal is a `*const [N:0]u8` data type, I read that as a constant pointer
+to an read-only `u8` array!!!
 
-- It points to the read-only data section address, lifetime is same with the
-program lifetime!!!
+- It's the const pointer, that means you can't change its value!!!
+
+    Why, that's because string literal stored inside the binary read-only data
+    session. When you run the program, binary has been loaded into memory, the
+    string literal value is in the data section (read-only). Each string literal
+    has a memory address, the string literal variable you created points to
+    that read-only memory address, that's why:)
+
+- Because it points to the read-only data section address, that's why lifetime is same
+with the program lifetime!!!
 
 - As it's pointer, that's why its byte size always be `4bytes(32bit)` or `8bytes(64bit)`
 

@@ -16,12 +16,13 @@ const Circle = struct {
         return Self{ .radius = radius };
     }
 
-    // Acts like instance method
+    // Acts like instance method but `self` is immutable, as that's const
+    // pointer to `Self`
     pub fn get_area(self: *const Self) f32 {
         return Self.PI * self.radius * self.radius;
     }
 
-    // Acts like instance method and allow to change self's values
+    // Acts like instance method and `self` is mutable
     pub fn set_radius(self: *Self, new_radius: f32) void {
         self.radius = new_radius;
     }
@@ -71,7 +72,7 @@ print(
         .is_zig_cool = true,
     });
 
-    // Pass an anonymous tuple instance (struct without field name) 
+    // Pass an tuple instance (anonymous struct without field name)
     dump_struct(.{
         "Hey:)",
         true,
@@ -92,7 +93,7 @@ You can return a struct from a function. This is how we do generics in Zig:
 
 ```c
 //
-// `comptime` forces that type that must be known at compile time!!!
+// The `comptime` keyword forces the type has to be known at compile time!!!
 //
 fn LinkedList(comptime T: type) type {
     return struct {
