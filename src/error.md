@@ -50,8 +50,8 @@ But the `ErrorType` just optional, so this works:
     </br>
 
     ```bash
-    # >>> [ errors ] - my_error type: anyerror!u16, value: error.TheErrorIJustInvented
-    # >>> [ errors ] - error_or_string type: error{ServerIsNotReady,ServerIsTooBusy}![]const u8, value (in string): error.ServerIsTooBusy
+    # >>> [ errors ] - error_or_string type: error{ServerIsNotReady,ServerIsTooBusy}![]const u8, value: error.ServerIsTooBusy
+    # >>> [ errors ] - error_or_string type: error{ServerIsNotReady,ServerIsTooBusy}![]const u8, value (in string): error.ServerIsTooBusy⏎
     ```
 
     </br>
@@ -100,7 +100,7 @@ But the `ErrorType` just optional, so this works:
     // `FunctionCall() catch |err| return err`
     //
     // It means return value if no error. Otherwise, throw error
-    // to up caller.
+    // back to the upper caller.
     //
     const func_result_4 = try func_may_return_error(3);
 
