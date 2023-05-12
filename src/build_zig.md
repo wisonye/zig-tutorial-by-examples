@@ -10,7 +10,18 @@ For getting a release build, you got 2 options. But you still need to run
 `strip` to remove the debug symbol after the release build, just keep that
 in mind.
 
-#### 1.1 CMD change only
+#### 1.1 Option 1 - CMD change only
+
+The `-Doptimize` option ONLY exists when you have the default settings in
+`build.zig`:
+
+```c
+    const optimize = b.standardOptimizeOption(.{});
+```
+
+Otherwise, `-Doptimize` won't exists when you run `zig build` command!!!
+
+</br>
 
 Pick the one you need from the following available release options:
 
@@ -35,12 +46,12 @@ zig build --help | rg -B3 Release
 
 </br>
 
-#### 1.2. `build.zig` change needed
+#### 1.2. Option 2 - `build.zig` change needed
 
 - Set the preferred optimization mode in `build.zig` like this:
 
 
-    ```zig
+    ```c
     const optimize = b.standardOptimizeOption(.{
         // For best performance
         // .preferred_optimize_mode = std.builtin.OptimizeMode.ReleaseFast
