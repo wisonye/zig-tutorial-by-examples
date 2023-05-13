@@ -65,7 +65,7 @@ exe.defineCMacro("ENABLE_DEBUG_LOG", null);
 
 //
 // Add include path and library path when necessary.
-// Or you can add `-I` to the global `cFlags` above, it's up to you:)
+// Or you can add `-I` or `-L` to the global `cFlags` above, it's up to you:)
 //
 // exe.addIncludeDir("/usr/local/include");
 // exe.addLibPath("/usr/local/lib");
