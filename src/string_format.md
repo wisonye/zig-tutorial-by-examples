@@ -5,7 +5,7 @@ Detail description: [`std/fmt.zig#L35`](https://github.com/ziglang/zig/blob/mast
 Also, you should open the `std.fmt` source file and then search `test`, those
 unit tests are the best example code about how to use `std.fmt`:)
 
-### Format float value with the given decimals
+### 1. Format float value with the given decimals
 
 `{d:.2}`
 
@@ -18,7 +18,7 @@ print("\n>>> float value: {d:.2}", .{f_value});
 # >>> float value: 32.46
 ```
 
-### Format pointer
+### 2. Format pointer
 
 `{*}`
 
@@ -41,7 +41,7 @@ print("\n>>> me: {*}", .{&me});
 # >>> me: temp.Person@102948280
 ```
 
-### Format optional
+### 3. Format optional
 
 `{?}`
 
@@ -53,7 +53,7 @@ print("\n>>> value: {?}", .{value});
 # >>> value: null
 ```
 
-### Format error
+### 4. Format error
 
 `{!}`
 
@@ -83,7 +83,7 @@ print("\n>>> result3: {!?d}", .{result3});
 # >>> result3: null
 ```
 
-### Format binary
+### 5. Format binary
 
 - `{b}`
 
@@ -107,7 +107,7 @@ print("\n>>> value: {b:0>8}", .{value});
 # >>> value: 00001010
 ```
 
-### Format HEX
+### 6. Format HEX
 
 - `{x}` (lowercase) or `{X}` (uppercase)
 
@@ -147,7 +147,7 @@ print("\n>>> value: {b:0>8}", .{value});
     </br>
 
 
-### Format to the given buffer
+### 7. Format to the given buffer
 
 
 `std.fmt.bufPrint` return `BufPrintError![]u8`
@@ -209,7 +209,7 @@ print(
 </br>
 
 
-### How to pass a string as `C string`
+### 8. How to pass a string as `C string`
 
 For example, you try to call `std.fmt.bufPrint` to get back a formatted string,
 and then pass that string into `raylib.TraceLog` which asks for a `[*c]const u8`
@@ -254,7 +254,7 @@ rl.TraceLog(
 </br>
 
 
-### The potential bug you should know about if you try to pass `std.fmt.bufPrint` slice to the C API
+### 9. The potential bug you should know about if you try to pass `std.fmt.bufPrint` slice to the C API
 
 Make sure you ALWAYS zero the buffer that is used by the `std.fmt.bufPrint` and
 then pass the formatted string slice into a C API as a `null-terminated char array`
