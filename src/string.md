@@ -64,7 +64,7 @@
 
     </br>
 
-### How to concat string
+### How to concat string in compile-time
 
 Same thing with concatenating an array by using `++`
 
@@ -75,6 +75,57 @@ const format = "Format is {s}";
 
 </br>
 
+### How to concat string in runtime
+
+- The simple way is use `std.fmt.bufPrint`
+
+    ```c
+    const current_shell = std.os.getenv("SHELL") orelse "";
+    var temp_buf = [1]u8{0x00} ** 100;
+    const my_string = std.fmt.bufPrint(
+        &temp_buf,
+        "This is my current shell: {s}",
+        .{current_shell},
+    ) catch "";
+    print("\n>>> my_string: {s}", .{my_string});
+    ```
+
+    ```bash
+    # >>> my_string: This is my current shell: /usr/local/bin/fish⏎
+    ```
+
+    </br>
+
+- Or use `std.mem.concat` if you got a lot of strings to concat and difficult to estimate buffer size
+
+    ```c
+    //
+    // Create allocator instance
+    //
+    var arena_state = std.heap.ArenaAllocator.init(std.heap.c_allocator);
+    defer arena_state.deinit();
+    const allocator = arena_state.allocator();
+
+    //
+    // `std.mem.concat` is what you're looking for
+    //
+    const current_shell = std.os.getenv("SHELL") orelse "";
+    const my_string = std.mem.concat(
+        allocator,
+        u8,
+        &.{ "This is my current shell: ", current_shell },
+    ) catch "";
+    defer allocator.free(my_string);
+
+    print("\n>>> my_string: {s}", .{my_string});
+    ```
+
+    ```bash
+    # >>> my_string: This is my current shell: /usr/local/bin/fish⏎
+    ```
+
+    </br>
+
 
 ### Pass string or string literal as function parameter
 
@@ -84,6 +135,7 @@ to define the parameter type as a slice:
 ```c
 fn functio_accept_readonly_string(slice: []const u8) void {}
 fn functio_accept_string(slice: []u8) void {}
+fn functio_accept_readonly_string_array(slice: []const []const u8) void {}
 fn functio_accept_readonly_string_array(slice: [][]const u8) void {}
 fn functio_accept_string_array(slice: [][]u8) void {}
 ```
