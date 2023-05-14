@@ -14,6 +14,8 @@
 - [Pointers](./pointers.md)
 - [Slice](./slice.md)
 - [String](string.md)
+- [Number to string](number_to_string.md)
+- [`typedef`](typedef.md)
 - [Bits](bits.md)
 - [Struct fields compression](struct_fields_compression.md)
 - [Builtin functions](./builtin_functions.md)
