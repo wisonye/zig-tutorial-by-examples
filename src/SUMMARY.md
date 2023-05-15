@@ -14,6 +14,7 @@
 - [Pointers](./pointers.md)
 - [Slice](./slice.md)
     - [Slice syntax](./slice_syntax.md)
+    - [Why slice instead of pointer](./why_slice_instead_of_pointer.md)
     - [Slice features](./slice_features.md)
     - [Slice pitfall](./slice_pitfall.md)
 - [String](string.md)
