@@ -31,6 +31,7 @@
     - [Type conversion](./builtin_type_conversion.md)
     - [Pointer conversion](./builtin_pointer_conversion.md)
 - [Memory](./memory.md)
+    - [Print memory bytes in HEX](./print_memory.md)
 - [Build System](./build_zig.md)
     - [Release build](./how_to_create_release_build.md)
     - [Conditional compilation](./conditional_compilation.md)

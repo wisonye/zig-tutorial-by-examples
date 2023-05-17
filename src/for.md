@@ -30,7 +30,7 @@
     // To access the index of iteration, specify a second capture value.
     // This is zero-indexed.
     var sum2: i32 = 0;
-    for (items) |_, i| {
+    for (items, 0..) |_, i| {
         try expect(@TypeOf(i) == usize);
         sum2 += @intCast(i32, i);
     }
