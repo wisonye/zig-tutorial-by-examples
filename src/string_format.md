@@ -174,29 +174,51 @@ print("\n>>> value: {b:0>8}", .{value});
 //   and pass it (or its slice) into a C API, as C string has to be `\0`
 //   null-terminated.
 //
-var person_desc_buf: [100]u8 = undefined;
+var buffer: [100]u8 = undefined;
+var buffer_index: usize = 0;
 
+// `std.fmt.bufPrint` returns a sclie `[]u8`
 const person_desc_str = std.fmt.bufPrint(
-    &person_desc_buf,
+    &buffer,
     "person {{\n\tfirst_name: {s}\n\tlast_name: {s}\n}}",
     .{
         "Wison",
         "Ye",
     },
 ) catch "";
+buffer_index += person_desc_str.len;
+
+const date_str = std.fmt.bufPrint(
+    //
+    // You're able to concatenate the string into the same buffer, just make sure
+    // to slice the buffer from the correct position
+    //
+    buffer[buffer_index..],
+    "Date: {s}",
+    .{"2022-03-04 11:22:33"},
+) catch "";
+buffer_index += date_str.len;
 
 print(
-    "\n >>>> [ person_desc_str ]\ntype: {},\nlen: {},\nbyte size: {},\nvalue: {s}",
+    "\n>>>> [ person_desc_str ]\ntype: {},\nlen: {},\nbyte size: {},\nvalue: {s}\ndate: {s}\n",
     .{
         @TypeOf(person_desc_str),
         person_desc_str.len,
         @sizeOf(@TypeOf(person_desc_str)),
         person_desc_str,
+        date_str,
+    },
+);
+
+print(
+    "\n>>> [ buffer ]\nsize: {d},\nused len: {d},\nvalue: {s}",
+    .{
+        buffer.len, buffer_index, buffer,
     },
 );
 ```
 ```bash
-#  >>>> [ person_desc_str ]
+# >>>> [ person_desc_str ]
 # type: []const u8,
 # len: 44,
 # byte size: 16,
@@ -204,6 +226,15 @@ print(
 #         first_name: Wison
 #         last_name: Ye
 # }
+# date: Date: 2022-03-04 11:22:33
+# 
+# >>> [ buffer ]
+# size: 100,
+# used len: 69,
+# value: person {
+#         first_name: Wison
+#         last_name: Ye
+# }Date: 2022-03-04 11:22:33⏎
 ```
 
 </br>
