@@ -5,6 +5,7 @@
 - [Hello world (C) cross-compilation](./helloworld_c.md)
 - [Data types](./data_types.md)
 - [Variables](./variables.md)
+    - [Optional](./optional_var.md)
 - [Enum](./enum.md)
 - [Error](./error.md)
 - [Struct](./struct.md)
