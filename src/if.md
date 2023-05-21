@@ -36,4 +36,24 @@
 
     </br>
 
+- If with optional
+
+    ```c
+    const my_result: ?u8 = 200;
+    // const my_result: ?u8 = null;
+
+    //
+    // If `my_result` is not the `null`, then we got `value` in the if block
+    //
+    if (my_result) |value| {
+        print("\n>>> my_result (optinoal value): {d}", .{value});
+    }
+    ```
+
+    ```bash
+    # >>> my_result (optinoal value): 200⏎
+    ```
+
+    </br>
+
 
