@@ -39,6 +39,7 @@
     - [Customize build step](./customize_build_step.md)
     - [Add existing library](./how_to_add_exisiting_library.md)
     - [Compile C project](./compile-c-project.md)
+    - [Modules and dependencies](./modules-and-dependencies.md)
 - [Working with C]()
     - [Equivalent functions in `Zig`](./c_function_in_zig.md)
     - [Variadic functions in `Zig`](./variadic_function_in_zig.md)
