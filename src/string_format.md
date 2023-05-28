@@ -154,11 +154,11 @@ print("\n>>> value: {b:0>8}", .{value});
 
 - You can silent the error by using `catch`.
 
-- It return `[]u8` (slice of u8), the slice of the give buffer
-  (u8 array)
+- It return `[]u8` (slice of u8), the slice of the give buffer (u8 array), that's
+why you need to make sure NOT use the returned slice when the given buffer is
+out of scope!!!
 
-- Slice means `pointer + length`, that's why its byte size is
-  `8+8 = 16`
+- `[]u8` means `pointer + length`, that's why its byte size is `8+8 = 16`
 
 - Use `{{}}` to escape braces
 
@@ -239,6 +239,54 @@ print(
 
 </br>
 
+## 7.1 Format to the given buffer but you don't know the size
+
+If you want to use `std.fmt.bufPrint` but:
+
+- You don't know how big the buffer is and you want the buffer size as small as
+possible
+
+- You're ok with heap allocation
+
+Then you can use `std.fmt.allocPrint`, it calculates the size of the given
+format string and call `std.fmt.bufPrint` under the hood
+
+```c
+///
+///
+///
+fn dynamic_print(allocator: Allocator) []const u8 {
+    const Person = struct {
+        first_name: []const u8,
+        last_name: []const u8,
+        age: u8,
+    };
+
+    const me = Person{
+        .first_name = "Wison",
+        .last_name = "Ye",
+        .age = 100,
+    };
+
+    // An internal buffer will be created via `allocator.alloc()`
+    return std.fmt.allocPrint(allocator, "Me: {}", .{me}) catch "";
+}
+
+///
+///
+///
+pub fn main() !void {
+    var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
+    defer arena.deinit();
+    const allocator = arena.allocator();
+    {
+        const temp_str = dynamic_print(allocator);
+        print("\n>>> temp_str: {s}", .{temp_str});
+    }
+}
+```
+
+</br>
 
 ## 8. How to pass a string as `C string`
 

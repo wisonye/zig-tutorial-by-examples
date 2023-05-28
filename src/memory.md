@@ -58,7 +58,11 @@ std.head.ThreadSafeAllocator
 
 </br>
 
-You should go and read the official doc [`Choosing an Allocator`](https://ziglang.org/documentation/master/#Choosing-an-Allocator)
+The best place to know how to choose an allocator is here:
+
+[`Allocators`](https://ziglearn.org/chapter-2/#allocators)
+
+Alternatively, you should go and read the official doc [`Choosing an Allocator`](https://ziglang.org/documentation/master/#Choosing-an-Allocator)
 section before you make any decision.
 
 </br>
