@@ -288,6 +288,10 @@ pub fn main() !void {
 
 </br>
 
+Also, `std.fmt.allocPrint` is useful inside `build.zig`, as you can use the
+`b.allocator` without care about creating `Allocator` instance and freeing
+memory.
+
 ## 8. How to pass a string as `C string`
 
 For example, you try to call `std.fmt.bufPrint` to get back a formatted string,
