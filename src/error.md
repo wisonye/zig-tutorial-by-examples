@@ -148,4 +148,17 @@ print("\n >>>> state_str len: {}, byte size: {}, value: {s}", .{
 
 </br>
 
+## How to convert an `Error` to a string
+
+Use `@errorName(ERROR_HERE)`:
+
+```c
+const my_error = error.MyCustomError;
+print(
+    "\n>>> my error type: {}, error name str: {s}",
+    .{ @TypeOf(my_error), @errorName(my_error) },
+);
+```
+
+</br>
 

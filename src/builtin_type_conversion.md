@@ -33,6 +33,8 @@
 
     `@truncate` - convert between integer types, chopping off bits
 
+    `@errorName` - convert error into string
+
     For example:
 
 
