@@ -26,6 +26,7 @@
 - [Number to string](number_to_string.md)
 - [`typedef`](typedef.md)
 - [Bits](bits.md)
+- [Reader and writer](./reader_and_writer.md)
 - [Struct fields compression](struct_fields_compression.md)
 - [Builtin functions](./builtin_functions.md)
     - [Type info](./builtin_type_info.md)
