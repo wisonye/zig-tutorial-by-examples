@@ -1,5 +1,36 @@
 # C functions in Zig
 
+You can use any existing `LibC` functions direclty via `std.c`:
+
+```c
+std.c._exit
+std.c.abort
+std.c.mkdir
+std.c.fopen
+std.c.fread
+std.c.fwrite
+std.c.fclose
+std.c.malloc
+std.c.free
+std.c.pthread_xxxx
+......
+```
+
+Or you can use the portable version via `std.os`. A few examples below:
+
+| Libc                     | Zig std                         |
+|--------------------------|---------------------------------|
+| open(path, flags, ...)   | std.os.open(path, flags, perm)  |
+| read(fd, buffer, size)   | std.os.read(fd, buffer)         |
+| mkdir(path, mode)        | std.os.mkdir(path, mode)        |
+| unlink(path)             | std.os.unlink(path)             |
+
+</br>
+
+</br>
+
+Some daily `Libc` functions in `zig`:
+
 - `memset` --> Builtin `@memset` or from std `std.mem.set`
 
     Use to init buffer
@@ -87,4 +118,5 @@
     [source](https://ziglang.org/documentation/master/std/src/mem.zig.html#L611)
 
     </br>
+
 
