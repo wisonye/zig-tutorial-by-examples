@@ -53,6 +53,17 @@
 
     </br>
 
+- Range value
+
+    ```c
+    var temp: usize = 0;
+    for (0..std.math.maxInt(u16)) |_| {
+        temp += 1;
+    }
+    ```
+
+    </br>
+
 - inline for loop
 
     `inline for loop` unroll or expand at comile-time, I treat it as the easy
