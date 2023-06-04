@@ -1,7 +1,5 @@
 # Zig tutorial by examples
 
-## What's included in this tutorial
-
 This tutorial helps you to learn `Zig` in a quick and easy way. It targets the
 following audiences:
 
@@ -13,7 +11,22 @@ it a try
 
 </br>
 
-The tutorial covers the following topics with detailed examples:
+I wrote this tutorial as a summary after I use `zip` to write a few projects
+(including 2D gaming), so that's why you always see straightforward summarises
+instead of amazing fancy words in this tutorial. 
+
+Also, you can treat this tutorial as a quick `Q&A` or manual as well. That means
+you don't need to go through from top to bottom, just click the chapter you're
+interested in and dive in. In some chapters, I put extra links to other important
+and valuable blogs/youtube/articles, just in case you want to know more about
+that topic.
+
+I'm working on some machine learning project with `Zip` at this moment,  I will
+update this tutorial from time to time, hope it helps:)
+
+</br>
+
+# The tutorial covers the following topics with detailed examples
 
 - What is Zig
 - Hello world cross-compilation
@@ -99,9 +112,17 @@ The tutorial is created by **`mdbook`**.
     mdbook serve --open
     ```
 
-    How to export as **`PDF`**?
+    </br>
 
-    That's pretty easy, in the browser, click on the print icon on the right-top to save as **`PDF`**.
+- How to export as **`PDF`**?
+
+    Click on the print icon on the right-top to save as **`PDF`**.
+
+    </br>
+
+- Choose a different theme
+
+    ![choose-a-theme](./readme-images/choose-a-theme.png)
 
     </br>
 
