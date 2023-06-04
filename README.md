@@ -4,14 +4,14 @@ This tutorial helps you to learn `Zig` in a quick and easy way. It targets the
 following audiences:
 
 - With a system programming language background (C/C++/Rust, etc) and want to
-try `zip`
+try `zig`
 
 - Comes from a non-system programming language background and wants to give
 it a try
 
 </br>
 
-I wrote this tutorial as a summary after I use `zip` to write a few projects
+I wrote this tutorial as a summary after I use `zig` to write a few projects
 (including 2D gaming), so that's why you always see straightforward summarises
 instead of amazing fancy words in this tutorial. 
 
@@ -21,7 +21,7 @@ interested in and dive in. In some chapters, I put extra links to other importan
 and valuable blogs/youtube/articles, just in case you want to know more about
 that topic.
 
-I'm working on some machine learning project with `Zip` at this moment,  I will
+I'm working on some machine learning project with `zig` at this moment,  I will
 update this tutorial from time to time, hope it helps:)
 
 </br>
