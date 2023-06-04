@@ -1,7 +1,7 @@
 # Modules and dependencies
 
-Since `0.11`, `zip` brings the natively supported package manager, so you can
-add dependencies by adding `module` from another `zip` project.
+Since `0.11`, `zig` brings the natively supported package manager, so you can
+add dependencies by adding `module` from another `zig` project.
 
 
 ### 1. How to export module from your package
