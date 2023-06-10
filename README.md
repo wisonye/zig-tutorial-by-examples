@@ -43,7 +43,6 @@ update this tutorial from time to time, hope it helps:)
 - Struct
 - Array
 - String format
-- `comptime`
 - Pointers
 - Slice
     - Slice syntax
@@ -53,6 +52,11 @@ update this tutorial from time to time, hope it helps:)
 - String
 - Number to string
 - `typedef`
+- `comptime` and generic
+    - `comptime`
+    - `Static dispatch`
+    - Convert data type example
+- Interface and dynamic dispatch
 - Bits
 - Reader and writer
 - Struct fields compression
