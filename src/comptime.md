@@ -6,6 +6,10 @@ It asks for (or say force) the given `T` has to be known at compiletime, that's
 how `generic` works in `Zig`.
 
 ```c
+//
+// Generic constructor function returns a `struct` type.
+// It works like `List<T>` in another programming language.
+//
 fn List(comptime T: type) type {
     return struct {
         items: []T,
@@ -13,9 +17,13 @@ fn List(comptime T: type) type {
     };
 }
 
-// The generic List data structure can be instantiated by passing in a type:
 var buffer: [10]i32 = undefined;
-var list = List(i32){
+
+//
+// The generic List data structure can be instantiated by passing in a type,
+// `i32` in this case:
+//
+var list = List(i32) {
     .items = &buffer,
     .len = 0,
 };
