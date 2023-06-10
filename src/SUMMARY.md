@@ -29,8 +29,6 @@
     - [`Static dispatch`](./static_dispatch.md)
     - [Convert data type example](./comptime_convert_data_type_example.md)
 - [Interface and dynamic dispatch](./interface.md)
-    - [`anytype`](./anytype.md)
-    - [`@fieldParentPtr`](./field_parent_ptr.md)
 - [Bits](bits.md)
 - [Reader and writer](./reader_and_writer.md)
 - [Struct fields compression](struct_fields_compression.md)
