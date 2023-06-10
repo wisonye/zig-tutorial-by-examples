@@ -49,7 +49,7 @@ var list = IntList {
 </br>
 
 If you're coming from `Rust`, the behavior and mechanism of `comptime` in `Zig`
-look like you declare the following List in `Rust`:
+look like the `monomorphization` in `Rust`:
 
 ```rust
 struct List<T> {
