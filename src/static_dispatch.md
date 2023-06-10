@@ -39,7 +39,7 @@ instance as parameter and call its `execute_command`, then it looks like this:
 fn run_command(
     comptime command: anytype,
     comptime return_data_type: type,
-) CommandExecuteResult(return_data_type) {
+) return_data_type {
     return command.execute_command();
 }
 ```
@@ -51,16 +51,22 @@ is called.
 
 So, let's take a look at the code:
 
+- The command result type
+
+    ```c
+    fn CommandExecuteResult(comptime T: type) type {
+        return struct {
+            data: T,        // Result data to return when `success` is `true`
+            success: bool   // Whether the command executes successfully or not
+        };
+    }
+    ```
+
+    </br>
+
 - All concrete types:
 
     ```c
-    ///
-    /// Command return type
-    ///
-    fn CommandExecuteResult(comptime T: type) type {
-        return struct { data: T, success: bool };
-    }
-
     ///
     ///
     ///
