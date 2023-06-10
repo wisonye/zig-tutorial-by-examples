@@ -40,8 +40,8 @@ var list = IntList {
 
 </br>
 
-It looks like your declare the following `List<T>` in `Rust`, then `rustc`
-generates the concrete type version for you, same thing:)
+If you're coming from `Rust`, the behavior and mechanism of `comptime` in `Zig`
+look like you declare the following List in `Rust`:
 
 ```rust
 struct List<T> {
@@ -49,68 +49,25 @@ struct List<T> {
     len: usize,
 }
 ```
-</br>
-
-
-Also, you can imagine that in a `Zig` function that has the statement
-`if (some_comptime_condition) ...`, the `if` checking block is completely
-erased, and all that's left is its contents.
 
 </br>
 
-There is a detailed case to explain how std `print` works with `comptime`:
+Then `rustc` generates the concrete type version for you:
 
-[Case-Study-print-in-Zig](https://ziglang.org/documentation/master/#Case-Study-print-in-Zig)
+```rust
+// let list1: List<u8>;
+struct List_u8 {
+    items: [u8],
+    len: usize,
+}
 
-</br>
-
-### `comptime` convert data type from one to other
-
-Compiletime-known is super useful if you want to write something like
-what `reflection` does in another programming language. For example, you can
-write a function that accepts `anytype` and change all its field's type to
-`boolean` (just an example, you get the idea):
-
-```c
-const builtin = @import("std").builtin;
-
-fn Booled(comptime T: type) type {
-    //
-    // Field array to hold all fields with new `boolean` type
-    //
-    var fields: []const builtin.StructField = &.{};
-
-    //
-    // Loop in `T` type fields and convert its type to `boolean`
-    //
-    inline for (std.meta.fields(T)) |f| {
-
-        // `++` contacts array
-        fields = fields ++ &.{
-            // Create new `StructField` instance
-            builtin.StructField {
-                // Same name with the given field
-                .name = f.name,
-                // Change its type to `boolean`, you can change to
-                // whatever type you wanted
-                .type = bool,
-            }
-        };
-    }
-
-    //
-    // Create a new `Type` instance and use `@Type` turns it into
-    // a real zig data type
-    //
-    return @Type(builtin.Type {
-        .Struct = .{
-            // All newly created fields
-            .fields = fields,
-            .decls = &.{},
-        }
-    };
+// let list2: List<i32>;
+struct List_i32 {
+    items: [i32],
+    len: usize,
 }
 ```
 
 </br>
+
 
