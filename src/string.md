@@ -33,12 +33,12 @@
     Why `*const`?
 
     That's because a string literal stores as static data in the `data`
-    section of your binary, that's why it's constand pointer to the read-only
+    section of your binary, that's why it's constant pointer to the read-only
     data section in memory (after loading your binary into memory)!!!
 
     As it points to the read-only data section address, so its lifetime is same
     with the program lifetime!!! Also, that's why you can return a string literal
-    (pointer) from a function, as that const pointer always valid (not point to
+    (pointer) from a function, as that constant pointer always valid (not point to
     anywhere inside the function stack frame)!!!
 
     As it's pointer, that's why its byte size always be `4bytes(32bit)` or
@@ -141,5 +141,4 @@ fn functio_accept_string_array(slice: [][]u8) void {}
 ```
 
 </br>
-
 

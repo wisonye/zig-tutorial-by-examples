@@ -22,6 +22,7 @@
     - [Slice features](./slice_features.md)
     - [Slice pitfall](./slice_pitfall.md)
 - [String](string.md)
+- [Manipulate String](manipulate_string.md)
 - [Number to string](number_to_string.md)
 - [`typedef`](typedef.md)
 - [`comptime` and generic]()
