@@ -86,6 +86,26 @@ print(
 
     </br>
 
+### Zero init
+
+```c
+const Person = struct {
+    first_name: []const u8,
+    last_name: []const u8,
+    age: u8
+};
+
+// Init the given field and zero all the rest fields
+const me = std.mem.zeroInit(Person, .{
+    .first_name = "Me",
+});
+
+// Zero all fields
+const wison = std.mem.zeroes(Person);
+```
+
+</br>
+
 
 ### Generic
 
