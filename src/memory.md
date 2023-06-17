@@ -25,7 +25,6 @@ fn initCapacity(allocator: Allocator, num: usize) Allocator.Error!Self
     var list_2 = try ArrayList(i8).initCapacity(testing.allocator, 200);
     defer list_2.deinit();
 }
-
 // `AutoHashMap` 
 fn init(allocator: Allocator) Self
 
@@ -39,32 +38,4 @@ fn init(allocator: Allocator) Self
 
 When linking against `libc`, `Zig` exposes this allocator with `std.heap.c_allocator`.
 So, you can use the familiar API: `malloc/realloc/free`. 
-
-### Allocators
-
-There are many allocators you can choose:
-
-```c
-std.heap.c_allocator
-std.head.ArenaAllocator
-std.head.FixedBufferAllocator
-std.head.GeneralPurposeAllocator // Got leak detection: fn detectLeaks(self: *Self) bool
-std.head.LogToWriterAllocator
-std.head.LoggingAllocator
-std.head.ScopedLoggingAllocator
-std.head.StackFallbackAllocator
-std.head.ThreadSafeAllocator
-```
-
-</br>
-
-The best place to know how to choose an allocator is here:
-
-[`Allocators`](https://ziglearn.org/chapter-2/#allocators)
-
-Alternatively, you should go and read the official doc [`Choosing an Allocator`](https://ziglang.org/documentation/master/#Choosing-an-Allocator)
-section before you make any decision.
-
-</br>
-
 

@@ -67,6 +67,7 @@ update this tutorial from time to time, hope it helps:)
     - Type conversion
     - Pointer conversion
 - Memory
+    - Choose an allocator
     - Print memory bytes in HEX
 - Build System
     - Release build
