@@ -50,6 +50,7 @@ update this tutorial from time to time, hope it helps:)
     - Slice features
     - Slice pitfall
 - String
+- Manipulate String
 - Number to string
 - `typedef`
 - `comptime` and generic
