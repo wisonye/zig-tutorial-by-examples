@@ -81,6 +81,8 @@ update this tutorial from time to time, hope it helps:)
     - Variadic functions in `Zig`
 - How to
     - Read environment variable
+    - Use ArrayList
+    - Use HashMap
 
 </br>
 
