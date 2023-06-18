@@ -79,6 +79,8 @@ update this tutorial from time to time, hope it helps:)
 - Working with C
     - Equivalent functions in `Zig`
     - Variadic functions in `Zig`
+- How to
+    - Read environment variable
 
 </br>
 
