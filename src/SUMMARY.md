@@ -51,3 +51,5 @@
 - [Working with C]()
     - [Equivalent functions in `Zig`](./c_function_in_zig.md)
     - [Variadic functions in `Zig`](./variadic_function_in_zig.md)
+- [How to]()
+    - [Read environment variable](./how_to_read_env.md)
