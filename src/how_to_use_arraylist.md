@@ -192,7 +192,6 @@
 
     </br>
 
-
 - Sorting list
 
     `std.mem.lessThan` compare Array of `T` and get back a `bool`
@@ -228,3 +227,8 @@
     ```
     </br>
 
+- Clear list
+
+    Use `ArrayList.clearAndFree()`
+
+    </br>
