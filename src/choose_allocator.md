@@ -279,5 +279,29 @@ you can choose.
 
     </br>
 
+- `std.testing.allocator`
+
+    This allocator should only be used in temporary test programs. It detects
+    memory-leaking by default.
+
+    Example:
+
+    ```c
+    test "Just a test" {
+        const test_allocator = std.testing.allocator;
+        var list = try std.ArrayList(u8).initCapacity(test_allocator, 10);
+        // defer list.deinit();
+        _ = list;
+    }
+    ```
+
+    ```bash
+    # run test: error: 'test.Just a test' leaked: [gpa] (err): memory address 0x7fb243511000 leaked:
+    ```
+
+    </br>
+
+
+
 Alternatively, you should go and read the official doc [`Choosing an Allocator`](https://ziglang.org/documentation/master/#Choosing-an-Allocator)
 section before you make any decision.
