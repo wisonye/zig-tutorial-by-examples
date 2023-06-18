@@ -65,7 +65,24 @@
 
     </br>
 
-- Read values via `ArrayList.items`
+- Access the last item
+
+    ```c
+    if (list.getLastOrNull()) |person| {
+        _ = person;
+    }
+
+    //
+    // `poporNull` get back and remove the last item
+    //
+    if (list.popOrNull()) |person| {
+        _ = person;
+    }
+    ```
+
+    </br>
+
+- Read items via `ArrayList.items`
 
     ```c
     //
@@ -113,7 +130,7 @@
     </br>
 
 
-- Read values via `ArrayList.items`
+- Turn items into owned slice and clear list
 
     ```c
     //
