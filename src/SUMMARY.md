@@ -57,4 +57,6 @@
     - [Use HashMap](./how_to_use_hashmap.md)
     - [Handle JSON](./how_to_handle_json.md)
     - [Iterator pattern](./how_to_iterator_pattern.md)
+    - [Multithreading](./how_to_multithreading.md)
+
 

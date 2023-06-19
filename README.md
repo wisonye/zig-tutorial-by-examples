@@ -85,6 +85,7 @@ update this tutorial from time to time, hope it helps:)
     - Use HashMap
     - Handle JSON
     - Iterator pattern
+    - Multithreading
 
 </br>
 
