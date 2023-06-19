@@ -83,6 +83,7 @@ update this tutorial from time to time, hope it helps:)
     - Read environment variable
     - Use ArrayList
     - Use HashMap
+    - Handle JSON
 
 </br>
 
