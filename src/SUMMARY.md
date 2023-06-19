@@ -56,4 +56,5 @@
     - [Use ArrayList](./how_to_use_arraylist.md)
     - [Use HashMap](./how_to_use_hashmap.md)
     - [Handle JSON](./how_to_handle_json.md)
+    - [Iterator pattern](./how_to_iterator_pattern.md)
 

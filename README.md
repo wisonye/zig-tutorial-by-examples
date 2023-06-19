@@ -84,6 +84,7 @@ update this tutorial from time to time, hope it helps:)
     - Use ArrayList
     - Use HashMap
     - Handle JSON
+    - Iterator pattern
 
 </br>
 
