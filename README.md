@@ -41,6 +41,7 @@ update this tutorial from time to time, hope it helps:)
 - Enum
 - Error
 - Struct
+- Anonymous function
 - Tagged union
 - Array
 - String format
