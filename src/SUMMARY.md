@@ -55,3 +55,5 @@
     - [Read environment variable](./how_to_read_env.md)
     - [Use ArrayList](./how_to_use_arraylist.md)
     - [Use HashMap](./how_to_use_hashmap.md)
+    - [Handle JSON](./how_to_handle_json.md)
+
