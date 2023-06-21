@@ -35,12 +35,26 @@
 
     `@errorName` - convert error into string
 
+    `std.fmt.parseInt, std.fmt.parseUnsigned` - convert string to integer
+
+    `std.fmt.parseFloat` - convert string to float
+
+    </br>
+
     For example:
 
 
     ```c
     @intToFloat(f32, self.alpha_mask.?.width),
     @floatToInt(c_int, self.ball.radius * 2),
+
+    const temp_int = try std.fmt.parseInt(u8, "11", 10);
+    const hex_u8 = try std.fmt.parseInt(u8, "0A", 16);
+
+    const radius = std.fmt.parseFloat(
+        f32,
+        std.mem.trim(u8, radius_str, " "),
+    ) catch 10.0;
     ```
 
     </br>
