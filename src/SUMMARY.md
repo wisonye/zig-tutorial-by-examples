@@ -54,10 +54,12 @@
     - [Variadic functions in `Zig`](./variadic_function_in_zig.md)
 - [How to]()
     - [Read environment variable](./how_to_read_env.md)
+    - [Excecute command](./how_to_run_command.md)
     - [Use ArrayList](./how_to_use_arraylist.md)
     - [Use HashMap](./how_to_use_hashmap.md)
     - [Handle JSON](./how_to_handle_json.md)
     - [Iterator pattern](./how_to_iterator_pattern.md)
     - [Multithreading](./how_to_multithreading.md)
+    - [Send HTTP request](./how_to_send_http_request.md)
 
 
