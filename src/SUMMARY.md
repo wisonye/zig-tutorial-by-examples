@@ -54,6 +54,7 @@
     - [Variadic functions in `Zig`](./variadic_function_in_zig.md)
 - [How to]()
     - [Read environment variable](./how_to_read_env.md)
+    - [Read process arguments](./how_to_read_process_arguments.md)
     - [Excecute command](./how_to_run_command.md)
     - [Use ArrayList](./how_to_use_arraylist.md)
     - [Use HashMap](./how_to_use_hashmap.md)
