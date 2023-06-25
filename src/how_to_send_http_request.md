@@ -11,8 +11,8 @@ Here is the JSON struct:
 
 ```c
 const Post = struct {
+    id: ?usize,
     userId: usize,
-    id: usize,
     title: []const u8,
     body: []const u8,
 
@@ -24,7 +24,7 @@ const Post = struct {
             &buffer,
             "[ Post ]\n{{\n\tuserId: {d},\n\tid: {d},\n\ttitle: {s},\n\tbody: {s}\n}}",
             .{
-                self.userId, self.id, self.title, self.body,
+                self.userId, if (self.id) |id_value| id_value else 0, self.title, self.body,
             },
         );
         print("\n>>> {s}", .{info});
@@ -229,9 +229,103 @@ const Post = struct {
 - POST request
 
     ```c
+    fn create_post(
+        parent_allocator: std.mem.Allocator,
+        new_post: *const Post,
+    ) !void {
+        var arena = std.heap.ArenaAllocator.init(parent_allocator);
+        defer arena.deinit();
+        const allocator = arena.allocator();
+
+        //
+        // Url string
+        //
+        const url_string = "https://jsonplaceholder.typicode.com/posts";
+        print("\n>>> [ create_post ] - url: {s}", .{url_string});
+
+        const url = std.Uri.parse(url_string) catch unreachable;
+
+        //
+        // Http client
+        //
+        var client: std.http.Client = .{ .allocator = allocator };
+        defer client.deinit();
+
+        //
+        // Custom headers
+        //
+        var headers = std.http.Headers{ .allocator = allocator };
+        try headers.append("Content-Type", "application/json; charset=UTF-8");
+
+        //
+        // Http client request
+        //
+        var req = try client.request(.POST, url, headers, .{});
+        defer req.deinit();
+
+        // Before starting the request, this tells the client to send the
+        // payload in chunks.
+        req.transfer_encoding = std.http.Client.RequestTransfer.chunked;
+
+        //
+        // Start sending request and
+        //
+        try req.start();
+
+        //
+        // Send POST payload
+        //
+        //
+        var json_stack_buffer = [_]u8{0x00} ** 256;
+        var buffer_stream = std.io.fixedBufferStream(&json_stack_buffer);
+        var json_writer = buffer_stream.writer();
+        try std.json.stringify(new_post, .{}, json_writer);
+        const json_string = buffer_stream.getWritten();
+        try req.writer().writeAll(json_string);
+        try req.finish();
+
+        //
+        // Then wait for the response to finish
+        //
+        try req.wait();
+
+        //
+        // Read the entire response body, but only allow it to allocate
+        // 256KB of memory
+        //
+        const body_json_str = try req.reader().readAllAlloc(
+            allocator,
+            256 * 1024,
+        );
+        print("\n>>> [ query_post ] Response body_json_str: {s}", .{body_json_str});
+
+        const post = try std.json.parseFromSlice(
+            Post,
+            allocator,
+            body_json_str,
+            .{},
+        );
+        defer std.json.parseFree(Post, allocator, post);
+
+        try post.show();
+    }
     ```
 
     ```bash
+    # >>> [ create_post ] - url: https://jsonplaceholder.typicode.com/posts
+    # >>> [ create_post ] Response body_json_str: {
+    #   "id": 101,
+    #   "userId": 1,
+    #   "title": "Hello",
+    #   "body": "New post"
+    # }
+    # >>> [ Post ]
+    # {
+    #         userId: 1,
+    #         id: 101,
+    #         title: Hello,
+    #         body: New post
+    # }
     ```
 
     </br>
@@ -255,6 +349,13 @@ pub fn main() !void {
 
     try list_posts(allocator);
     try query_post(allocator, 8);
+
+    try create_post(allocator, &.{
+        .id = null,
+        .userId = 1,
+        .title = "Hello",
+        .body = "New post",
+    });
 }
 ```
 
