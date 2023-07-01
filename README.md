@@ -30,7 +30,7 @@ update this tutorial from time to time, hope it helps:)
 
 - What is Zig
 - Hello world cross-compilation
-- Hello world  cross-compilation(./helloworld_c.md)
+- Hello world  cross-compilation
 - Data types
 - Variables
     - Optional
