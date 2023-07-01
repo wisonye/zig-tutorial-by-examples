@@ -98,7 +98,7 @@ update this tutorial from time to time, hope it helps:)
 
 ## How to run
 
-The tutorial is created by **`mdbook`**.
+The tutorial is created with **`mdbook`**.
 
 - How to install **`mdBook`**
 
