@@ -45,6 +45,7 @@
 - [Build System](./build_zig.md)
     - [Release build](./how_to_create_release_build.md)
     - [Conditional compilation](./conditional_compilation.md)
+    - [Build multiple targets](./build_multiple_targetrs.md)
     - [Customize build step](./customize_build_step.md)
     - [Add existing library](./how_to_add_exisiting_library.md)
     - [Compile C project](./compile-c-project.md)

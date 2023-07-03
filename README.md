@@ -73,6 +73,7 @@ update this tutorial from time to time, hope it helps:)
 - Build System
     - Release build
     - Conditional compilation
+    - Build multiple targets
     - Customize build step
     - Add existing library
     - Compile C project
