@@ -47,6 +47,7 @@
     - [Conditional compilation](./conditional_compilation.md)
     - [Build multiple targets](./build_multiple_targetrs.md)
     - [Customize build step](./customize_build_step.md)
+    - [A pitfall when using dependOn](./a_pitfall_when_using_dependon.md)
     - [Add existing library](./how_to_add_exisiting_library.md)
     - [Compile C project](./compile-c-project.md)
     - [Modules and dependencies](./modules-and-dependencies.md)

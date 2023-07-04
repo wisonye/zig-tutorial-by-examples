@@ -75,6 +75,7 @@ update this tutorial from time to time, hope it helps:)
     - Conditional compilation
     - Build multiple targets
     - Customize build step
+    - A pitfall when using dependOn
     - Add existing library
     - Compile C project
     - Modules and dependencies
