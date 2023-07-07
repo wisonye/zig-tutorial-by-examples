@@ -79,6 +79,7 @@ update this tutorial from time to time, hope it helps:)
     - Add existing library
     - Compile C project
     - Modules and dependencies
+    - Pass build option to dependencies
 - Working with C
     - Equivalent functions in `Zig`
     - Variadic functions in `Zig`
