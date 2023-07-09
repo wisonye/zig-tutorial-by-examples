@@ -52,6 +52,7 @@
     - [Compile C project](./compile-c-project.md)
     - [Modules and dependencies](./modules-and-dependencies.md)
     - [Pass build option to dependencies](./pass-build-option-to-dependencies.md)
+    - [Test fixed dependencies locally](./test-fixed-dependencies-locally.md)
 - [Working with C]()
     - [Equivalent functions in `Zig`](./c_function_in_zig.md)
     - [Variadic functions in `Zig`](./variadic_function_in_zig.md)

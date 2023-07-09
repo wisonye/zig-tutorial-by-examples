@@ -80,6 +80,7 @@ update this tutorial from time to time, hope it helps:)
     - Compile C project
     - Modules and dependencies
     - Pass build option to dependencies
+    - Test fixed dependencies locally
 - Working with C
     - Equivalent functions in `Zig`
     - Variadic functions in `Zig`
