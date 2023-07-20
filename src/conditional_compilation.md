@@ -132,3 +132,120 @@ is defined, so you can do like this:
 
     </br>
 
+
+## 2.1 Based on custom build options to define struct fields
+
+For example, I got a `DebugStatus` defined in `debug_status.zig` and it includes
+a lot of debug code, and I don't want it to be compiled into the binary if
+`enable_debugging` doesn't pass into `zig build`.
+
+Also, the `debug_status` field only exists when `enable_debugging` is defined,
+how to make that magic happens?
+
+- Add `enable_debugging` build option in `build.zig`:
+
+    ```c
+    //
+    // Extra build option
+    //
+    const build_options = b.addOptions();
+    build_options.addOption(
+        bool,
+        "enable_debugging",
+        b.option(
+            bool,
+            "enable_debugging",
+            "Enable debugging or not",
+        ) orelse false,
+    );
+
+    // Make sure to add `build_options`, otherwise, it won't work!!!
+    exe.addOptions("build_options", build_options);
+    ```
+
+    </br>
+
+- Here is how to define struct field based on the `enable_debugging` build options
+
+    ```c
+    const DebugStatus = @import("debug_status.zig").DebugStatus;
+    const build_options = @import("build_options");
+
+    const Info = struct {
+        version: usize,
+
+        //
+        // Here is how the magic happens, `void` is zero size.
+        //
+        debug_status: if (build_options.enable_debugging) DebugStatus else void,
+
+        const Self = @This();
+
+        pub fn print_info(self: *const Self) void {
+            print("\n>>> [ Info - print_info ] - version: {d}", .{self.version});
+
+            // Here as well
+            if (build_options.enable_debugging) {
+                self.debug_status.print_status();
+            }
+        }
+    };
+
+    pub fn main() !void {
+        const info = Info{
+            .version = 1,
+            //
+            // This is the way to init correctly, no need to care about the
+            // `else` case at all!!!
+            //
+            .debug_status = if (build_options.enable_debugging) DebugStatus.init(),
+        };
+
+        info.print_info();
+    }
+    ```
+
+    </br>
+
+    The `const DebugStatus = @import("debug_status.zig").DebugStatus;` above
+    does nothing if `enable_debugging` not exists, as `Info.debug_status` is
+    `void` (zero size type). So, no need to worry about it imports the source
+    code to be compiled:)
+
+    </br>
+
+
+    So, how to prove that?
+
+    -  The version without `enable_debugging` related code
+
+        ```bash
+        rm -rf zig-cache/ zig-out
+        zig build
+
+        # Try to print all `DebugStatus` related symbols and got nothing, that
+        # means `debug_status.zig` doesn't get compiled:)
+        llvm-objdump --syms ./zig-out/bin/temp | rg print_status
+        ```
+
+        </br>
+
+    - The version with `enable_debugging` related code
+
+        ```bash
+        rm -rf zig-cache/ zig-out
+
+        # Same with `zig build -Denable_debugging=true`
+        zig build -Denable_debugging
+
+        # `DebugStatus` related symbols exists, `debug_status.zig` get compiled
+        # into binary!!!
+        llvm-objdump --syms ./zig-out/bin/temp | rg print_status
+        # 00000001000014ac l     F __TEXT,__text _debug_status.DebugStatus.print_status
+        # 00000001000753d4 l     O __TEXT,__cstring _debug_status.DebugStatus.print_status__anon_3714
+        # 00000001000014ac      d  *UND* _debug_status.DebugStatus.print_status
+        # 00000001000753d4      d  *UND* _debug_status.DebugStatus.print_status__anon_3714
+        ```
+
+        </br>
+
