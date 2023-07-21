@@ -13,6 +13,7 @@
 - [Enum](./enum.md)
 - [Error](./error.md)
 - [Struct](./struct.md)
+- [Import struct](./import_struct.md)
 - [Anonymous function](./anonymous_function.md)
 - [Tagged union](./tagged_union.md)
 - [Array](./array.md)
