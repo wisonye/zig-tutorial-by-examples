@@ -24,6 +24,9 @@ Example:
 - Simple command
 
     ```c
+    const std = @import("std");
+    const log = std.log;
+
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     const allocator = gpa.allocator();
     defer {
@@ -32,16 +35,38 @@ Example:
         if (deinit_status == .leak) std.testing.expect(false) catch @panic("\nGPA detected a memory leak!!!\n");
     }
 
+    const command = [_][]const u8{
+        "ls", "-lht",
+    };
+
     const result = try std.ChildProcess.exec(.{
         .allocator = allocator,
-        .argv = &[_][]const u8{
-            "ls", "./", "-lha",
-        },
+        .argv = &command,
     });
-    print("\n>>> [ command result ]:\n{s}", .{result.stdout});
+
+    log.info(">>> [ run_command ] - command: {s}", .{command});
+
+    // Run successfully
+    if (result.stdout.len > 0) {
+        log.info(">>> [ run_command ] - result: {s}", .{result.stdout});
+    }
+
+    // Fail
+    if (result.stderr.len > 0) {
+        log.err(">>> [ command error ]: {s}", .{result.stderr});
+    }
 
     allocator.free(result.stdout);
     allocator.free(result.stderr);
+    ```
+
+    ```bash
+    # info: >>> [ run_command ] - command: { ls, -lht }
+    # info: >>> [ run_command ] - result: total 16K
+    # drwxr-xr-x 2 wison wison 4.0K Jul 25 18:18 src
+    # -rw-r--r-- 1 wison wison 3.3K Jul 25 18:14 build.zig
+    # drwxr-xr-x 3 wison wison 4.0K Jul 25 17:39 zig-out
+    # drwxr-xr-x 6 wison wison 4.0K Jul 25 17:37 zig-cache
     ```
 
     </br>
@@ -85,3 +110,80 @@ Example:
     allocator.free(result.stdout);
     allocator.free(result.stderr);
     ```
+    
+    </br>
+
+- Invoke `feh` to set wallpaper sample
+
+    ```c
+    const std = @import("std");
+    const log = std.log;
+    
+    ///
+    ///
+    ///
+    fn set_wallpaper(allocator: std.mem.Allocator, home_path: []const u8) !void {
+        const wallpaper = "digit-city-3.jpg";
+        // const wallpaper = "forest";
+        // const wallpaper = "factory";
+
+        var file_buffer: [512]u8 = undefined;
+        const wallpaper_full_path = std.fmt.bufPrint(
+            &file_buffer,
+            "{s}/Photos/wallpaper/{s}",
+            .{ home_path, wallpaper },
+        ) catch "";
+
+        const command = [_][]const u8{
+            "feh", "--bg-fill", wallpaper_full_path,
+        };
+
+        const result = try std.ChildProcess.exec(.{
+            .allocator = allocator,
+            .argv = &command,
+        });
+
+        log.info(">>> [ set_wallpaper ] - command: {s}", .{command});
+
+        // Run successfully
+        if (result.stderr.len > 0) {
+            log.info(">>> [ set_wallpaper ] - result: {s}", .{result.stdout});
+        }
+
+        // Fail
+        if (result.stderr.len > 0) {
+            log.err(">>> [ set_wallpaper ] - error: {s}", .{result.stderr});
+        }
+
+        allocator.free(result.stdout);
+        allocator.free(result.stderr);
+    }
+
+
+    ///
+    ///
+    ///
+    pub fn main() !void {
+        var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+        const allocator = gpa.allocator();
+        defer {
+            const deinit_status = gpa.deinit();
+            //fail test; can't try in defer as defer is executed after we return
+            if (deinit_status == .leak) std.testing.expect(false) catch @panic("\nGPA detected a memory leak!!!\n");
+        }
+
+        const home_path = std.os.getenv("HOME") orelse "";
+        log.info(">>> home_path: {s}", .{home_path});
+
+        try set_wallpaper(allocator, home_path);
+    }
+    ```
+
+    ```bash
+    # info: >>> home_path: /home/wison
+    # info: >>> [ set_wallpaper ] - command: { feh, --bg-fill, /home/wison/Photos/wallpaper/digit-city-3.jpg }
+    ```
+
+    </br>
+
+
