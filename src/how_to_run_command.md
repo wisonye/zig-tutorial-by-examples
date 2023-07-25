@@ -186,4 +186,34 @@ Example:
 
     </br>
 
+- How to run a shell in `Zig`
+
+    You can't use `std.ChildProcess.exec` in this situation, as you can't wait
+    for a shell to be finished.
+
+    For this case, you should use `std.process.execv` to replace the current
+    process image with the executed process. 
+
+    ```c
+
+    fn replace_current_process(allocator: std.mem.Allocator) !void {
+        const replace_cmd = [_][]const u8{"/usr/bin/bash"};
+
+        //
+        // You can call `execv` like the following, both ways are work
+        //
+        // _ = std.process.execv(allocator, &replace_cmd) catch "";
+        return std.process.execv(allocator, &replace_cmd);
+
+        //
+        // But you can't call `execv` like this!!!
+        //
+        // _ = try std.process.execv(allocator, &replace_cmd);
+    }
+
+    try replace_current_process(allocator);
+    ```
+
+    </br>
+
 
