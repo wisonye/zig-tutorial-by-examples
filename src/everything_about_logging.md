@@ -119,7 +119,19 @@ information, it's NOT the your program result!!!
 result that should print to `stdout`. For example, `ls` result, `cat` result,
 etc. But not logging category output, that's the point I think.
 
-And here is the implementation in `lib/std/io.zig`:
+For example, if you run your program like this:
+
+```bash
+zig build run -- >out.txt 2>log.txt
+```
+
+Then all `std.io.getStdOut().writer().print()` go to `out.txt` and all `std.log`
+(logging related content) go to `log.txt` and . That's a very good example
+to explain when you should print to `stderr` or `stdout`.
+
+</br>
+
+And here is the default log implementation in `lib/std/io.zig`:
 
 ```c
 /// The default implementation for the log function, custom log functions may
@@ -141,7 +153,7 @@ pub fn defaultLog(
 
 </br>
 
-Why does it need to lock via `getStderrMutex()`? I think maybe caused by the
+So, why does it need to lock via `getStderrMutex()`? I think maybe caused by the
 `.blocking` mode (for different mechanisms compare to `async` one), not sure:)
 
 </br>
