@@ -1,6 +1,6 @@
 # Everything about logging
 
-### 1. What option if you want to log something out to console
+### 1. What options do you have if you want to log something out to console
 
 - You can use `std.log`
 
@@ -22,13 +22,16 @@
         That said different functions only work on different build mode:
 
         - `.Debug` => `log.debug/info/warn/err` all work
-        - `.ReleaseSafe` => `log.info/warn/err` work
-        - `.ReleaseFast, .ReleaseSmall` => `log.err` works
+        - `.ReleaseSafe` => only `log.info/warn/err` work
+        - `.ReleaseFast, .ReleaseSmall` => only `log.err` works
 
         </br>
 
 
 - You can use `std.io.getStdOut().writer()`
+
+    You wll know know more about `Writer` in the `Reader and writer` chapter,
+    let's only talk about the `getStdOut()` at this moment.
 
     Here is the source code of `getStdOut()`:
 
@@ -108,7 +111,15 @@
 
 ### 2. Why `std.log.xxxx` print to `stderr` by the default implementation?
 
-Because of here is the implementation in `lib/std/io.zig`:
+I think `zig` wants to tell you that `std.log` or `std.debug.print` is NOT
+the correct way to print out actual output of your program, it just debug
+information, it's NOT the your program result!!!
+
+`Actual outupt` means the result that after running program, the actual valuable
+result that should print to `stdout`. For example, `ls` result, `cat` result,
+etc. But not logging category output, that's the point I think.
+
+And here is the implementation in `lib/std/io.zig`:
 
 ```c
 /// The default implementation for the log function, custom log functions may
@@ -130,12 +141,15 @@ pub fn defaultLog(
 
 </br>
 
-Why does it need to lock via `getStderrMutext()`? I think maybe caused by the
-`.blocking` mode (for mechanisms compare to `async` one), not sure:)
+Why does it need to lock via `getStderrMutex()`? I think maybe caused by the
+`.blocking` mode (for different mechanisms compare to `async` one), not sure:)
 
 </br>
 
 ### 3. What's the example to use `stdout` instead of `stderr`
+
+You wll know know more about `Writer` and `bufferedWriter` in the
+`Reader and writer` chapter.
 
 ```c
 // stdout is for the actual output of your application, for example if you
