@@ -62,6 +62,8 @@ update this tutorial from time to time, hope it helps:)
     - Convert data type example
 - Interface and dynamic dispatch
 - Bits
+- Everything about logging
+- logging in unit test
 - Reader and writer
 - Struct fields compression
 - Builtin functions

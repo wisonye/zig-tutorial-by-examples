@@ -25,8 +25,27 @@ That said you can and you should use `Writer` and `Reader` to process
 
 </br>
 
+### 2. What different between `Writer` and `BufferedWriter`?
 
-### 2. Example of using `Writer` and `Reader`
+You can create a `BufferedWriter` on top of a `Writer` instance, it prints out
+to the console based on one of the following conditions:
+
+- The internal buffer is full, and the internal buffer size is `4KB`:
+
+    ```c
+    pub fn bufferedWriter(underlying_stream: anytype) BufferedWriter(4096, @TypeOf(underlying_stream)) {
+        return .{ .unbuffered_writer = underlying_stream };
+    }
+    ```
+
+    </br>
+
+
+- You call `.flush()` manually
+
+</br>
+
+### 3. Example of using `Writer` and `Reader`
 
 Here is the example that uses `Writer` and `Reader` from a stack buffer stream:
 
@@ -91,8 +110,59 @@ pub fn main() !void {
 
 </br>
 
+### 1.1 Use `Writer` pattern on a unknown dynmaic output content
 
-### 3. Write your own `Writer` and `Reader` for your custom struct
+The example above use a `fixedBufferStream` on top of a fixed stack buffer, what
+if I don't know how much size I need for my output content???
+
+In that situation, you can use `std.ArrayList([]const u8)` to print out with
+the `Writer` pattern, here is an example:
+
+```c
+const builtin = @import("builtin");
+const debug = std.log.debug;
+const err = std.log.err;
+
+pub fn debug_print(self: *const Self) !void {
+    //
+    // Use `ArenaAllocator` then you don't need to care about freeing, that's
+    // really handy in the following situations:
+    //
+    // - You want to use `ArrayList` with string (`[]const u8`)
+    // - The string you try to `append` is the result of `std.fmt.allocPrint`
+    //
+    // But using `ArenaAllocator` you don't need to save `std.fmt.allocPrint`
+    // result into a local var, as you don't need to free theme manually:)
+    //
+    var arena = std.heap.ArenaAllocator.init(self.allocator);
+    defer arena.deinit();
+    const allocator = arena.allocator();
+
+    var log_list = try std.ArrayList([]const u8).initCapacity(allocator, 1024);
+    defer log_list.deinit();
+
+    // Prefix
+    try log_list.append(try std.fmt.allocPrint(
+        allocator,
+        "Your log start from here",
+        .{},
+    ));
+
+    // Keep printing dynamic content via `log_list.append`...
+
+    // Endding
+    try log_list.append("\n}");
+
+    // Print out in one shot
+    const temp_log = if (builtin.is_test) err else debug;
+    temp_log("{s}", .{log_list.items});
+}
+```
+
+</br>
+
+
+### 4. Write your own `Writer` and `Reader` for your custom struct
 
 </br>
 

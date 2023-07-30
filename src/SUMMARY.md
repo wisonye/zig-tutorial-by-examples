@@ -34,6 +34,8 @@
     - [Convert data type example](./comptime_convert_data_type_example.md)
 - [Interface and dynamic dispatch](./interface.md)
 - [Bits](bits.md)
+- [Everything about logging](./everything_about_logging.md)
+- [logging in unit test](./logging_in_unit_test.md)
 - [Reader and writer](./reader_and_writer.md)
 - [Struct fields compression](struct_fields_compression.md)
 - [Builtin functions](./builtin_functions.md)
